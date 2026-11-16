@@ -69,10 +69,10 @@ function filterBooks(event) {
   renderBooks(event.target.value);
 }
 
-setTimeout(() => {
-  (renderBooks(), 10);
-});
+renderBooks();
+
 // FAKE DATA
+
 function getBooks() {
   return new Promise((resolve) => {
     setTimeout(() => {
