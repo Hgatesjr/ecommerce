@@ -37,8 +37,9 @@ function priceHTML(originalPrice, salePrice) {
   if (!salePrice) {
     return`$${originalPrice.toFixed(2)}`;
   }
-  return "there is a sale price";
-  console.log(originalPrice, salePrice);
+  else {
+    return `<span class="book__price--normal">$${originalPrice.toFixed(2)}</span> $${salePrice.toFixed(2)}`;
+  }
 }
 
 function ratingsHTML(rating) {
