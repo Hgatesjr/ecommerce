@@ -1,24 +1,33 @@
+let books;
+
 async function renderBooks(filter) {
   const booksWrapper = document.querySelector(".books");
-  const books = await getBooks();
 
-    if (filter === "LOW_TO_HIGH") {
-      books.sort(
-        (a, b) =>
-          (a.salePrice || a.originalPrice) - (b.salePrice || b.originalPrice),
-      );
-    } else if (filter === "HIGH_TO_LOW") {
-      books.sort(
-        (a, b) =>
-          (b.salePrice || b.originalPrice) - (a.salePrice || a.originalPrice),
-      );
-    } else if (filter === "RATING") {
-      books.sort((a, b) => b.rating - a.rating);
-    }
+  booksWrapper.classList += " books__loading";
 
-    const booksHtml = books
-      .map((book) => {
-        return `<div class="book">
+  if (!books) {
+    books = await getBooks();
+  }
+
+  booksWrapper.classList.remove("books__loading");
+
+  if (filter === "LOW_TO_HIGH") {
+    books.sort(
+      (a, b) =>
+        (a.salePrice || a.originalPrice) - (b.salePrice || b.originalPrice),
+    );
+  } else if (filter === "HIGH_TO_LOW") {
+    books.sort(
+      (a, b) =>
+        (b.salePrice || b.originalPrice) - (a.salePrice || a.originalPrice),
+    );
+  } else if (filter === "RATING") {
+    books.sort((a, b) => b.rating - a.rating);
+  }
+
+  const booksHtml = books
+    .map((book) => {
+      return `<div class="book">
       <figure class="book__img--wrapper">
         <img class="book__img" src="${book.url}" alt="">
       </figure>
@@ -32,10 +41,10 @@ async function renderBooks(filter) {
         ${priceHTML(book.originalPrice, book.salePrice)}
       </div>
     </div>`;
-      })
-      .join("");
+    })
+    .join("");
 
-    booksWrapper.innerHTML = booksHtml;
+  booksWrapper.innerHTML = booksHtml;
 }
 
 function priceHTML(originalPrice, salePrice) {
@@ -61,7 +70,7 @@ function filterBooks(event) {
 }
 
 setTimeout(() => {
-  // (renderBooks(), 1000);
+  (renderBooks(), 10);
 });
 // FAKE DATA
 function getBooks() {
