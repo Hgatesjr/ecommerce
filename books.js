@@ -24,13 +24,21 @@ function renderBooks(filter) {
       ${ratingsHTML(book.rating)}
     </div>
     <div class="book__price">
-      <span>$${book.originalPrice.toFixed(2)}</span>
+      ${priceHTML(book.originalPrice, book.salePrice)}
     </div>
   </div>`;
     })
     .join("");
 
   booksWrapper.innerHTML = booksHtml;
+}
+
+function priceHTML(originalPrice, salePrice) {
+  if (!salePrice) {
+    return`$${originalPrice.toFixed(2)}`;
+  }
+  return "there is a sale price";
+  console.log(originalPrice, salePrice);
 }
 
 function ratingsHTML(rating) {
