@@ -1,7 +1,5 @@
 let books;
 
-async function renderBooks(filter) {
-  const booksWrapper = document.querySelector(".books");
 
   booksWrapper.classList += " books__loading";
 
@@ -69,10 +67,9 @@ function filterBooks(event) {
   renderBooks(event.target.value);
 }
 
-renderBooks();
+renderBooks()
 
 // FAKE DATA
-
 function getBooks() {
   return new Promise((resolve) => {
     setTimeout(() => {
